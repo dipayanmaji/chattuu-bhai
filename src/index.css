@@ -1,8 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Single+Day&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-#tsparticles canvas{
+#tsparticles canvas {
     z-index: 0;
+}
+
+h1 {
+    font-family: "Kaushan Script", cursive;
+}
+
+@media screen and (max-width: 480px) {
+    *::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+*::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    @apply dark:bg-white/10 bg-black/30;
 }

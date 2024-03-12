@@ -26,8 +26,8 @@ function App() {
 
         <ChatBox />
 
-        {/* <Globe />
-        <ParticleBg /> */}
+        <Globe />
+        <ParticleBg />
 
       </div>
     </div>

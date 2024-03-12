@@ -1,44 +1,5 @@
 import React, { useRef, useState } from "react";
 
-// const messages = [
-//     {
-//         text: "hii this is chattuu bhai",
-//         time: "01:03 PM"
-//     },
-//     {
-//         text: "hii Whatsupp",
-//         time: "11:10 PM"
-//     },
-//     {
-//         text: "Hello Brother",
-//         time: "11:03 PM"
-//     },
-//     {
-//         text: "hii this is chattuu bhai",
-//         time: "01:03 PM"
-//     },
-//     {
-//         text: "hii how are you",
-//         time: "10:33 PM"
-//     },
-//     {
-//         text: "hii Whatsupp",
-//         time: "11:10 PM"
-//     },
-//     {
-//         text: "heyy chattuu bhai here",
-//         time: "05:03 PM"
-//     },
-//     {
-//         text: "when you go to bed chattuu bhai!",
-//         time: "03:30 PM"
-//     },
-//     {
-//         text: "hii this is chattuu bhai",
-//         time: "01:03 PM"
-//     },
-// ]
-
 const ChatBox = () => {
     const [messages, setMessages] = useState([
         {

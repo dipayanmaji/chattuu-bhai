@@ -95,12 +95,12 @@ const ChatBox = () => {
                     autoFocus
                     type="text"
                     placeholder="Message"
-                    className="resize-none break-words w-[calc(100%-5rem)] max-h-24 h-[40px] overflow-y-auto dark:bg-gray-950/80 bg-white/60 dark:text-white text-black dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-l-3xl px-4 py-2 outline-none"
+                    className="resize-none break-words w-[calc(100%-5rem)] max-h-24 h-[40px] overflow-y-auto dark:bg-gray-950/80 bg-white/60 dark:text-white text-black dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-l-3xl px-4 py-2 outline-none backdrop-blur-sm"
                 ></textarea>
                 
                 <button
                     onClick={createMessage}
-                    className="w-20 h-[40px] dark:bg-gray-950/80 bg-white/60 dark:text-sky-300 text-fuchsia-900 font-bold rounded-r-3xl px-4 py-2 transition sm:hover:opacity-80 active:opacity-80"
+                    className="w-20 h-[40px] dark:bg-gray-950/80 bg-white/60 dark:text-sky-300 text-fuchsia-900 font-bold rounded-r-3xl px-4 py-2 transition sm:hover:opacity-80 active:opacity-80 backdrop-blur-sm"
                 >
                     Send
                 </button>

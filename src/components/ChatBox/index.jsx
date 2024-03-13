@@ -67,7 +67,7 @@ const ChatBox = () => {
     }, [])
 
     return (
-        <div className="w-full max-w-4xl h-[calc(100%-5rem)] mx-auto dark:bg-neutral-900/50 bg-gray-500/30 rounded-lg relative z-10 overflow-hidden">
+        <div className="w-full max-w-4xl h-[calc(100%-5rem)] mx-auto dark:bg-gray-700/20 bg-gray-500/30 rounded-lg relative z-10 overflow-hidden">
 
             {/* All messages box */}
             <div
@@ -76,7 +76,7 @@ const ChatBox = () => {
             >
                 {
                     messages.map((msg, index) =>
-                        <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-700/10 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6">
+                        <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6">
                             <div className="break-words">{msg.text}</div>
                             <span className="text-sm float-end inline-block">{msg.time}</span>
                         </div>
@@ -92,12 +92,12 @@ const ChatBox = () => {
                     autoFocus
                     type="text"
                     placeholder="Message"
-                    className="resize-none break-words w-[calc(100%-5rem)] max-h-24 h-[40px] overflow-y-auto dark:bg-gray-700/30 bg-white/60 dark:text-white text-black dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-l-3xl px-4 py-2 outline-none"
+                    className="resize-none break-words w-[calc(100%-5rem)] max-h-24 h-[40px] overflow-y-auto dark:bg-gray-950/80 bg-white/60 dark:text-white text-black dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-l-3xl px-4 py-2 outline-none"
                 ></textarea>
                 
                 <button
                     onClick={createMessage}
-                    className="w-20 h-[40px] dark:bg-gray-700/30 bg-white/60 dark:text-sky-300 text-fuchsia-900 font-bold rounded-r-3xl px-4 py-2 transition sm:hover:opacity-80 active:opacity-80"
+                    className="w-20 h-[40px] dark:bg-gray-950/80 bg-white/60 dark:text-sky-300 text-fuchsia-900 font-bold rounded-r-3xl px-4 py-2 transition sm:hover:opacity-80 active:opacity-80"
                 >
                     Send
                 </button>

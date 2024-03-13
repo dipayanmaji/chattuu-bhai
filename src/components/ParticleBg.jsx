@@ -94,7 +94,7 @@ const ParticleBg = () => {
     if (init) {
         return (
             <Particles
-                className="dark:visible invisible"
+                className="dark:block hidden"
                 id="tsparticles"
                 particlesLoaded={particlesLoaded}
                 options={options}

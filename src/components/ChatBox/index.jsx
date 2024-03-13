@@ -1,63 +1,54 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { getTime } from "../utilities/usefullJS";
 
 const ChatBox = () => {
     const [messages, setMessages] = useState([
         {
             text: "hii this is chattuu bhai",
-            time: "01:03 PM"
+            time: "13/02/2024, 01:03 PM"
         },
         {
             text: "hii Whatsupp",
-            time: "11:10 PM"
+            time: "13/02/2024, 11:10 PM"
         },
         {
             text: "Hello Brother",
-            time: "11:03 PM"
+            time: "13/02/2024, 11:03 PM"
         },
         {
             text: "hii this is chattuu bhai",
-            time: "01:03 PM"
+            time: "12/03/2024, 01:03 PM"
         },
         {
             text: "hii how are you",
-            time: "10:33 PM"
+            time: "12/03/2024, 10:33 PM"
         },
         {
             text: "hii Whatsupp",
-            time: "11:10 PM"
+            time: "12/03/2024, 11:10 PM"
         },
         {
             text: "heyy chattuu bhai here",
-            time: "05:03 PM"
+            time: "13/03/2024, 05:03 PM"
         },
         {
             text: "when you go to bed chattuu bhai!",
-            time: "03:30 PM"
+            time: "13/03/2024, 03:30 PM"
         },
         {
             text: "hii this is chattuu bhai",
-            time: "01:03 PM"
+            time: "13/03/2024, 01:03 PM"
         },
     ]);
     const [newMsg, setNewMsg] = useState('');
     const inputRef = useRef(null);
+    const msgBoxRef = useRef(null);
 
     const createMessage = () => {
         inputRef.current.focus();
-        if (newMsg === '') return;
+        if (newMsg.trim() === '') return;
 
-        const date = new Date();
-        let xm = "AM";
-        let hh = date.getHours();
-        if (hh > 12) {
-            hh = hh - 12;
-            xm = "PM";
-        }
-        if (hh < 10) hh = "0" + hh;
-        let mm = date.getMinutes();
-        if (mm < 10) mm = "0" + mm;
-
-        let time = `${hh}:${mm} ${xm}`
+        let time = getTime();
 
         setMessages([...messages, {
             text: newMsg,
@@ -65,35 +56,48 @@ const ChatBox = () => {
         }]);
 
         setNewMsg('');
+
+        setTimeout(() => {
+            msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
+        }, 1);
     }
+
+    useEffect(() => {
+        msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
+    }, [])
 
     return (
         <div className="w-full max-w-4xl h-[87%] mx-auto dark:bg-neutral-900/50 bg-gray-500/30 rounded-lg relative z-10 overflow-hidden">
 
-            <div className="w-full h-[calc(100%-3.5rem)] px-4 pt-2 mb-2 space-y-2 overflow-auto">
+            {/* All messages box */}
+            <div
+                ref={msgBoxRef}
+                className="w-full h-[calc(100%-3.5rem)] px-4 pt-2 mb-2 space-y-2 overflow-y-auto overflow-x-hidden"
+            >
                 {
                     messages.map((msg, index) =>
-                        <div className="w-full min-h-12 dark:bg-gray-500/10 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6">
-                            <p>{msg.text}</p>
+                        <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-500/10 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6">
+                            <div className="break-words">{msg.text}</div>
                             <span className="text-sm float-end inline-block">{msg.time}</span>
                         </div>
                     )
                 }
             </div>
 
-            <div className="w-full h-12 min-h-12 px-4 pb-2">
-                <input
+            <div className="w-full h-12 min-h-12 px-4 pb-2 flex items-end">
+                <textarea
                     ref={inputRef}
                     onChange={(e) => setNewMsg(e.currentTarget.value)}
                     value={newMsg}
                     autoFocus
                     type="text"
                     placeholder="Message"
-                    className="w-[calc(100%-5.5rem)] mr-2 h-full dark:bg-gray-500/10 bg-white/30 dark:text-white text-neutral-800 dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-full px-4 py-1 outline-none"
-                />
+                    className="resize-none w-[calc(100%-5rem)] max-h-24 h-[40px] overflow-y-auto dark:bg-black/60 bg-white/60 dark:text-white text-black dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-l-3xl px-4 py-1 outline-none"
+                ></textarea>
+                
                 <button
                     onClick={createMessage}
-                    className="w-20 h-full dark:bg-gray-500/10 bg-white/30 dark:text-white text-neutral-800 rounded-full px-4 py-1"
+                    className="w-20 h-[40px] dark:bg-black/60 bg-white/60 dark:text-sky-300 text-fuchsia-900 font-bold rounded-r-3xl px-4 py-1 transition hover:opacity-80"
                 >
                     Send
                 </button>

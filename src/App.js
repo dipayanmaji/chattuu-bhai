@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import './App.css';
-import ChatBox from './components/ChatBox';
-import ParticleBg from './components/ParticleBg';
 import { IoMdMoon, IoIosSunny } from "react-icons/io";
+import ChatBox from './components/ChatBox';
 import Globe from './components/Globe';
+import ParticleBg from './components/ParticleBg';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') ? (localStorage.getItem('darkMode') === "true" ? true : false) : true);
+  const [screenHeight, setScreenHeight] = useState(window.screen.height);
+  const [screenWidth, setScreenWidth] = useState(window.screen.width);
+  const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') ? (localStorage.getItem('darkMode') === "true" ? true : false) : false);
+
+  document.body.addEventListener('resize', () => {
+    setScreenHeight(window.screen.height);
+    setScreenWidth(window.screen.width);
+  })
 
   const darkModeHandler = () => {
     localStorage.setItem('darkMode', !darkMode);
@@ -26,8 +33,8 @@ function App() {
 
         <ChatBox />
 
-        <Globe />
-        <ParticleBg />
+        {/* <Globe />
+        <ParticleBg /> */}
 
       </div>
     </div>

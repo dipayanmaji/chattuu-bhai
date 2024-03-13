@@ -14,7 +14,7 @@ function Model(props) {
 
 function Globe() {
   return (
-      <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }} style={{ "position": "absolute", "top": 0, "left": 0, "zIndex": 1 }} className="dark:visible invisible">
+      <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }} style={{ "position": "absolute", "top": 0, "left": 0, "zIndex": 1 }} className="dark:block hidden">
         {/* <color attach="background" args={["#000"]} /> */}
         <PresentationControls speed={1.5} global zoom={.5} polar={[0, 0]}>
           <Stage environment={"sunset"}>

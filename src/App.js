@@ -27,7 +27,7 @@ function App() {
         style={{ height: `${screenHeight}px`, width: `${screenWidth}px` }}
       >
 
-        <header className='w-full max-w-4xl h-16 mx-auto flex items-center justify-between p-4 mb-4 dark:bg-neutral-900/50 bg-gray-500/50 text-2xl sm:rounded-lg relative z-10'>
+        <header className='w-full max-w-4xl h-16 mx-auto flex items-center justify-between p-4 sm:mb-4 dark:bg-neutral-900/50 bg-gray-500/50 text-2xl sm:rounded-lg relative z-10'>
           <h1 className='dark:text-sky-300 text-white'>Chattuu Bhai</h1>
           <span onClick={darkModeHandler} className='cursor-pointer dark:text-sky-300 text-white'>{
             darkMode ? <IoIosSunny /> : <IoMdMoon />

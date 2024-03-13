@@ -67,7 +67,7 @@ const ChatBox = () => {
     }, [])
 
     return (
-        <div className="w-full max-w-4xl h-[87%] mx-auto dark:bg-neutral-900/50 bg-gray-500/30 rounded-lg relative z-10 overflow-hidden">
+        <div className="w-full max-w-4xl h-[calc(100%-5rem)] mx-auto dark:bg-neutral-900/50 bg-gray-500/30 rounded-lg relative z-10 overflow-hidden">
 
             {/* All messages box */}
             <div

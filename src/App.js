@@ -23,7 +23,7 @@ function App() {
   return (
     <div className={darkMode ? 'dark' : ''}>
       <div
-        className={`min-w-[280px] min-h-[280px] md:px-10 px-4 py-5 bg-gradient-to-r from-violet-500 to-fuchsia-500 dark:from-black dark:to-black text-zinc-100 dark:text-zinc-200 relative`}
+        className={`min-w-[280px] min-h-[280px] md:px-10 px-2 py-2 bg-gradient-to-r from-violet-500 to-fuchsia-500 dark:from-black dark:to-black text-zinc-100 dark:text-zinc-200 relative`}
         style={{ height: `${screenHeight}px`, width: `${screenWidth}px` }}
       >
 

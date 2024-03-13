@@ -46,7 +46,10 @@ const ChatBox = () => {
 
     const createMessage = () => {
         inputRef.current.focus();
-        if (newMsg.trim() === '') return;
+        if (newMsg.trim() === ''){
+            setNewMsg('');
+            return;
+        }
 
         let time = getTime();
 

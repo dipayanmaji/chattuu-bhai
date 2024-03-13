@@ -23,11 +23,11 @@ function App() {
   return (
     <div className={darkMode ? 'dark' : ''}>
       <div
-        className={`min-w-[280px] min-h-[280px] md:px-10 px-2 py-2 bg-gradient-to-r from-violet-500 to-fuchsia-500 dark:from-black dark:to-black text-zinc-100 dark:text-zinc-200 relative`}
+        className={`min-w-[280px] min-h-[280px] md:px-10 sm:px-2 px-0 sm:py-2 py-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 dark:from-black dark:to-black text-zinc-100 dark:text-zinc-200 relative`}
         style={{ height: `${screenHeight}px`, width: `${screenWidth}px` }}
       >
 
-        <header className='w-full max-w-4xl h-16 mx-auto flex items-center justify-between p-4 mb-4 dark:bg-neutral-900/50 bg-gray-500/50 text-2xl rounded-lg relative z-10'>
+        <header className='w-full max-w-4xl h-16 mx-auto flex items-center justify-between p-4 mb-4 dark:bg-neutral-900/50 bg-gray-500/50 text-2xl sm:rounded-lg relative z-10'>
           <h1 className='dark:text-sky-300 text-white'>Chattuu Bhai</h1>
           <span onClick={darkModeHandler} className='cursor-pointer dark:text-sky-300 text-white'>{
             darkMode ? <IoIosSunny /> : <IoMdMoon />

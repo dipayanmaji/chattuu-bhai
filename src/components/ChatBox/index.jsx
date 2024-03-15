@@ -1,62 +1,47 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getTime } from "../utilities/usefullJS";
+import { getTime } from "../../utilities/usefullJS";
+import { SERVER_URL } from "../../utilities/config";
+import axios from 'axios';
 
 const ChatBox = () => {
-    const [messages, setMessages] = useState([
-        {
-            text: "hii this is chattuu bhai",
-            time: "13/02/2024, 01:03 PM"
-        },
-        {
-            text: "hii Whatsupp",
-            time: "13/02/2024, 11:10 PM"
-        },
-        {
-            text: "Hello Brother",
-            time: "13/02/2024, 11:03 PM"
-        },
-        {
-            text: "hii this is chattuu bhai",
-            time: "12/03/2024, 01:03 PM"
-        },
-        {
-            text: "hii how are you",
-            time: "12/03/2024, 10:33 PM"
-        },
-        {
-            text: "hii Whatsupp",
-            time: "12/03/2024, 11:10 PM"
-        },
-        {
-            text: "heyy chattuu bhai here",
-            time: "13/03/2024, 05:03 PM"
-        },
-        {
-            text: "when you go to bed chattuu bhai!",
-            time: "13/03/2024, 03:30 PM"
-        },
-        {
-            text: "hii this is chattuu bhai",
-            time: "13/03/2024, 01:03 PM"
-        },
-    ]);
+    const [messages, setMessages] = useState([]);
     const [newMsg, setNewMsg] = useState('');
+    let [pageNo, setPageNo] = useState(1);
     const inputRef = useRef(null);
     const msgBoxRef = useRef(null);
 
-    const createMessage = () => {
+    // get messages from server
+    const getMessages = async () => {
+        try {
+            const response = await axios.get(SERVER_URL + "/api/getmessages?page=" + pageNo)
+            console.log(response.data.data);
+            setMessages(response.data.data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    // update new message to server
+    const createMessage = async () => {
         inputRef.current.focus();
-        if (newMsg.trim() === ''){
+        if (newMsg.trim() === '') {
             setNewMsg('');
             return;
         }
 
-        let time = getTime();
-
-        setMessages([...messages, {
-            text: newMsg,
-            time: time
-        }]);
+        try {
+            const response = await axios.post(SERVER_URL + "/api/postmessage", {
+                message: newMsg
+            })
+            console.log(response.data.data);
+            getMessages();
+        }
+        catch (err) {
+            console.log(err);
+            alert('Something went wrong. Please try after some time');
+            return;
+        }
 
         setNewMsg('');
 
@@ -66,6 +51,7 @@ const ChatBox = () => {
     }
 
     useEffect(() => {
+        getMessages();
         msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
     }, [])
 
@@ -80,8 +66,8 @@ const ChatBox = () => {
                 {
                     messages.map((msg, index) =>
                         <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6">
-                            <div className="break-words">{msg.text}</div>
-                            <span className="text-sm float-end inline-block">{msg.time}</span>
+                            <div className="break-words">{msg.message}</div>
+                            <span className="text-sm float-end inline-block">{getTime(msg.date)}</span>
                         </div>
                     )
                 }
@@ -97,7 +83,7 @@ const ChatBox = () => {
                     placeholder="Message"
                     className="resize-none break-words w-[calc(100%-5rem)] max-h-24 h-[40px] overflow-y-auto dark:bg-gray-950/80 bg-white/60 dark:text-white text-black dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-l-3xl px-4 py-2 outline-none backdrop-blur-sm"
                 ></textarea>
-                
+
                 <button
                     onClick={createMessage}
                     className="w-20 h-[40px] dark:bg-gray-950/80 bg-white/60 dark:text-sky-300 text-fuchsia-900 font-bold rounded-r-3xl px-4 py-2 transition sm:hover:opacity-80 active:opacity-80 backdrop-blur-sm"

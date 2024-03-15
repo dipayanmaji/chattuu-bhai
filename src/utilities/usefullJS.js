@@ -1,6 +1,6 @@
 
-const getTime = () => {
-    const date = new Date();
+const getTime = (givenDate) => {
+    const date = new Date(givenDate);
     // date
     let dd = date.getDate();
     if (dd < 10) dd = "0" + dd;

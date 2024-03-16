@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getTime } from "../../utilities/usefullJS";
+import { IoIosArrowDown } from "react-icons/io";
 import { SERVER_URL } from "../../utilities/config";
 import axios from 'axios';
 import io from 'socket.io-client';
@@ -8,9 +9,19 @@ const socket = io.connect("https://chattuu-bhai-server.onrender.com");
 const ChatBox = () => {
     let [messages, setMessages] = useState([]);
     const [newMsg, setNewMsg] = useState('');
+    const [showBtn, setShowBtn] = useState(false);
     // let [pageNo, setPageNo] = useState(1);
     const inputRef = useRef(null);
     const msgBoxRef = useRef(null);
+
+    msgBoxRef.current?.addEventListener('scroll', () => {
+        const clientHeight = msgBoxRef.current.clientHeight; //display height
+        const scrollHeight = msgBoxRef.current.scrollHeight; //total scrollbar hight
+        const scrollTop = msgBoxRef.current.scrollTop; //top position
+
+        if (scrollHeight > clientHeight + scrollTop + 200) setShowBtn(true);
+        else setShowBtn(false);
+    })
 
     // web socket send message connection
     const sendMessage = () => {
@@ -38,10 +49,6 @@ const ChatBox = () => {
     useEffect(() => {
         socket.on("receive_message", (data) => {
             setMessages((prev) => [...prev, data]);
-
-            setTimeout(() => {
-                msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
-            }, 10);
         })
     }, [socket]);
 
@@ -112,6 +119,14 @@ const ChatBox = () => {
                     <div className="w-full h-full grid place-items-center text-center font-medium text-[18px]">Come on, Hit me with you first message.</div>
                 }
             </div>
+
+            {/* scroll to latest message */}
+            <span
+                onClick={() => msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight)}
+                className={`absolute right-5 bottom-16 z-20 h-7 w-7 text-[20px] dark:bg-white/30 bg-black/50 rounded-full ${showBtn ? 'opacity-1 visible' : 'opacity-0 invisible'} grid place-items-center cursor-pointer md:hover:opacity-85 transition`}
+            >
+                <IoIosArrowDown />
+            </span>
 
             <div className="w-full h-12 min-h-12 px-4 pb-2 flex items-end">
                 <textarea

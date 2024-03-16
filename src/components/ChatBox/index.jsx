@@ -14,14 +14,16 @@ const ChatBox = () => {
     const inputRef = useRef(null);
     const msgBoxRef = useRef(null);
 
-    msgBoxRef.current?.addEventListener('scroll', () => {
+    // scroll to latest message btn handler
+    const scrollBtnHandler = () => {
         const clientHeight = msgBoxRef.current.clientHeight; //display height
         const scrollHeight = msgBoxRef.current.scrollHeight; //total scrollbar hight
         const scrollTop = msgBoxRef.current.scrollTop; //top position
-
+        
         if (scrollHeight > clientHeight + scrollTop + 200) setShowBtn(true);
         else setShowBtn(false);
-    })
+    }
+    msgBoxRef.current?.addEventListener('scroll', scrollBtnHandler);
 
     // web socket send message connection
     const sendMessage = () => {
@@ -49,6 +51,8 @@ const ChatBox = () => {
     useEffect(() => {
         socket.on("receive_message", (data) => {
             setMessages((prev) => [...prev, data]);
+
+            scrollBtnHandler();
         })
     }, [socket]);
 
@@ -120,7 +124,7 @@ const ChatBox = () => {
                 }
             </div>
 
-            {/* scroll to latest message */}
+            {/* scroll to latest message btn */}
             <span
                 onClick={() => msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight)}
                 className={`absolute right-5 bottom-16 z-20 h-7 w-7 text-[20px] dark:bg-white/30 bg-black/50 rounded-full ${showBtn ? 'opacity-1 visible' : 'opacity-0 invisible'} grid place-items-center cursor-pointer md:hover:opacity-85 transition`}

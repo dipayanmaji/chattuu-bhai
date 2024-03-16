@@ -3,7 +3,6 @@ import { getTime } from "../../utilities/usefullJS";
 import { SERVER_URL } from "../../utilities/config";
 import axios from 'axios';
 import io from 'socket.io-client';
-// const socket = io.connect("http://localhost:8000");
 const socket = io.connect("https://chattuu-bhai-server.onrender.com");
 
 const ChatBox = () => {
@@ -31,7 +30,6 @@ const ChatBox = () => {
         setNewMsg('');
 
         setTimeout(() => {
-            console.log('scroll to bottom');
             msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
         }, 10);
     }
@@ -40,6 +38,10 @@ const ChatBox = () => {
     useEffect(() => {
         socket.on("receive_message", (data) => {
             setMessages((prev) => [...prev, data]);
+
+            setTimeout(() => {
+                msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
+            }, 10);
         })
     }, [socket]);
 
@@ -101,7 +103,7 @@ const ChatBox = () => {
                 {messages.length > 0 ?
 
                     messages.map((msg, index) =>
-                        <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6">
+                        <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6 border dark:border-white/10 border-transparent">
                             <div className="break-words">{msg.message}</div>
                             <span className="text-sm float-end inline-block">{getTime(msg.date)}</span>
                         </div>
@@ -115,16 +117,17 @@ const ChatBox = () => {
                 <textarea
                     ref={inputRef}
                     onChange={(e) => setNewMsg(e.currentTarget.value)}
+                    onKeyUp={(e) => e.key === "Enter" && sendMessage()}
                     value={newMsg}
                     autoFocus
                     type="text"
                     placeholder="Message"
-                    className="resize-none break-words w-[calc(100%-5rem)] max-h-24 h-[40px] overflow-y-auto dark:bg-gray-950/80 bg-white/60 dark:text-white text-black dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-l-3xl px-4 py-2 outline-none backdrop-blur-sm"
+                    className="resize-none break-words w-[calc(100%-5rem)] max-h-24 h-[40px] overflow-y-auto dark:bg-gray-950/80 bg-white/60 dark:text-white text-black dark:placeholder-slate-300/80 placeholder-slate-800/80 rounded-l-3xl px-4 py-[7px] outline-none backdrop-blur-sm border dark:border-white/10 border-transparent"
                 ></textarea>
 
                 <button
                     onClick={sendMessage}
-                    className="w-20 h-[40px] dark:bg-gray-950/80 bg-white/60 dark:text-sky-300 text-fuchsia-900 font-bold rounded-r-3xl px-4 py-2 transition sm:hover:opacity-80 active:opacity-80 backdrop-blur-sm"
+                    className="w-20 h-[40px] dark:bg-gray-950/80 bg-white/60 dark:text-sky-300 text-fuchsia-900 font-bold rounded-r-3xl px-4 py-[7px] transition sm:hover:opacity-80 active:opacity-80 backdrop-blur-sm border dark:border-white/10 border-transparent"
                 >
                     Send
                 </button>

@@ -11,7 +11,7 @@ const getTime = (givenDate) => {
 
     // let yyyy = date.getFullYear();
 
-    let formattedDate = months[mm] + ", " + dd;
+    let formattedDate = months[mm] + " " + dd;
 
     // time
     let xm = "AM";

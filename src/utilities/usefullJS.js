@@ -1,16 +1,17 @@
 
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
+
 const getTime = (givenDate) => {
     const date = new Date(givenDate);
     // date
     let dd = date.getDate();
     if (dd < 10) dd = "0" + dd;
 
-    let mm = date.getMonth() + 1;
-    if (mm < 10) mm = "0" + mm;
+    let mm = date.getMonth();
 
-    let yyyy = date.getFullYear();
+    // let yyyy = date.getFullYear();
 
-    let formattedDate = dd + '/' + mm + '/' + yyyy;
+    let formattedDate = months[mm] + ", " + dd;
 
     // time
     let xm = "AM";

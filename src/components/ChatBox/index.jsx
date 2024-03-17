@@ -153,7 +153,7 @@ const ChatBox = () => {
             {/* scroll to latest message btn */}
             <span
                 onClick={() => msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight)}
-                className={`absolute right-5 bottom-16 z-20 h-7 w-7 text-[20px] dark:bg-white/30 bg-black/50 rounded-full ${showBtn ? 'opacity-1 visible' : 'opacity-0 invisible'} grid place-items-center cursor-pointer md:hover:opacity-85 transition`}
+                className={`absolute right-5 bottom-16 z-20 h-7 w-7 text-[20px] dark:bg-white/30 bg-black/50 rounded-full transition-all duration-500 ${showBtn ? 'opacity-1 visible' : 'opacity-0 invisible'} grid place-items-center cursor-pointer md:hover:opacity-85 transition`}
             >
                 <IoIosArrowDown />
             </span>

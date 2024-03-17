@@ -17,6 +17,7 @@ const getTime = (givenDate) => {
     let xm = "AM";
 
     let hrs = date.getHours();
+    if (hrs === 12) xm = "PM";;
     if (hrs === 0) hrs = 12;
     if (hrs > 12) {
         hrs = hrs - 12;

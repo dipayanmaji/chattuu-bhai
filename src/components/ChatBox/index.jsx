@@ -3,6 +3,7 @@ import { getTime } from "../../utilities/usefullJS";
 import { IoIosArrowDown } from "react-icons/io";
 import sendTone from "../../utilities/tones/send-tone.mp3"
 import receiveTone from "../../utilities/tones/receive-tone.mp3"
+import reactStringReplace from 'react-string-replace';
 import { SERVER_URL } from "../../utilities/config";
 import axios from 'axios';
 import io from 'socket.io-client';
@@ -136,7 +137,11 @@ const ChatBox = () => {
 
                     messages.map((msg, index) =>
                         <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6 border dark:border-white/10 border-transparent">
-                            <div className="break-words">{msg.message}</div>
+                            <div className="break-words">
+                                {reactStringReplace(msg.message, 'bhai', (match, i) => (
+                                    <span key={i} className="bhai-text">{match}</span>
+                                ))}
+                            </div>
                             <span className="text-sm float-end inline-block">{getTime(msg.date)}</span>
                         </div>
                     )
@@ -153,6 +158,7 @@ const ChatBox = () => {
                 <IoIosArrowDown />
             </span>
 
+            {/* input box and send button */}
             <div className="w-full h-12 min-h-12 px-4 pb-2 flex items-end">
                 <textarea
                     ref={inputRef}

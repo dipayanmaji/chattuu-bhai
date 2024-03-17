@@ -33,3 +33,8 @@ h1 {
 *::-webkit-scrollbar-thumb {
     @apply dark:bg-white/10 bg-black/30;
 }
+
+.bhai-text {
+    @apply dark:text-sky-300 text-fuchsia-700 font-bold;
+    font-family: "Kaushan Script", cursive;
+}

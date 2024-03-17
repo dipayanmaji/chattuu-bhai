@@ -146,7 +146,7 @@ const ChatBox = () => {
                         </div>
                     )
                     :
-                    <div className="w-full h-full grid place-items-center text-center font-medium text-[18px]">Come on, Hit me with you first message.</div>
+                    <div className="w-full h-full grid place-items-center text-center font-medium text-[18px]">Come on, Hit me with your first message.</div>
                 }
             </div>
 

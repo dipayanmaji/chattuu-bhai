@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getTime } from "../../utilities/usefullJS";
 import { IoIosArrowDown } from "react-icons/io";
+import sendTone from "../../utilities/tones/send-tone.mp3"
+import receiveTone from "../../utilities/tones/receive-tone.mp3"
 import { SERVER_URL } from "../../utilities/config";
 import axios from 'axios';
 import io from 'socket.io-client';
@@ -19,11 +21,19 @@ const ChatBox = () => {
         const clientHeight = msgBoxRef.current.clientHeight; //display height
         const scrollHeight = msgBoxRef.current.scrollHeight; //total scrollbar hight
         const scrollTop = msgBoxRef.current.scrollTop; //top position
-        
+
         if (scrollHeight > clientHeight + scrollTop + 200) setShowBtn(true);
         else setShowBtn(false);
     }
     msgBoxRef.current?.addEventListener('scroll', scrollBtnHandler);
+
+    // play tones
+    const playTone = (mode) => {
+        let audio;
+        if (mode === 'send') audio = new Audio(sendTone);
+        else audio = new Audio(receiveTone);
+        audio.play();
+    }
 
     // web socket send message connection
     const sendMessage = () => {
@@ -41,6 +51,7 @@ const ChatBox = () => {
         setMessages((prev) => [...prev, newMsgObj]);
         socket.emit("send_message", newMsgObj);
         setNewMsg('');
+        playTone("send");
 
         setTimeout(() => {
             msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
@@ -51,8 +62,18 @@ const ChatBox = () => {
     useEffect(() => {
         socket.on("receive_message", (data) => {
             setMessages((prev) => [...prev, data]);
+            playTone("receive");
 
-            scrollBtnHandler();
+            const clientHeight = msgBoxRef.current.clientHeight; //display height
+            const scrollHeight = msgBoxRef.current.scrollHeight; //total scrollbar hight
+            const scrollTop = msgBoxRef.current.scrollTop; //top position
+
+            if (scrollHeight <= clientHeight + scrollTop + 200) {
+                setTimeout(() => {
+                    msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
+                }, 10);
+            }
+            else scrollBtnHandler();
         })
     }, [socket]);
 

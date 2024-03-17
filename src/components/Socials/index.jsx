@@ -6,7 +6,7 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 const Socials = () => {
     return (
         <ul
-            className="group fixed z-20 top-[50%] right-0 translate-y-[-50%] translate-x-[82%] hover:translate-x-0 transition-all duration-1000 flex bg-sky-900 p-2 rounded-s-full space-x-1"
+            className="group fixed z-20 top-20 right-0 translate-x-[82%] hover:translate-x-0 transition-all duration-1000 flex bg-sky-900 p-2 rounded-s-full space-x-1"
         >
             <li>
                 <a className="group-hover:bg-white/30">

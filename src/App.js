@@ -47,8 +47,8 @@ function App() {
         <Socials />
 
         {/* globe and particle themes for dark mode */}
-        {/* <Globe />
-        <ParticleBg /> */}
+        <Globe />
+        <ParticleBg />
 
       </div>
     </div>

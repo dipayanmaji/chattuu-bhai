@@ -52,7 +52,8 @@ const ChatBox = () => {
         }
 
         const newMsgObj = {
-            message: userName + ": " + newMsg,
+            username: userName,
+            message: newMsg,
             date: new Date()
         };
 
@@ -136,6 +137,7 @@ const ChatBox = () => {
                             messages.map((msg, index) =>
                                 <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6 border dark:border-white/10 border-transparent">
                                     <div className="break-words">
+                                        <span className="username">{msg.username === userName ? "You" : msg.username}: </span>
                                         {reactStringReplace(msg.message, 'bhai', (match, i) => (
                                             <span key={i} className="bhai-text">{match}</span>
                                         ))}

@@ -42,3 +42,7 @@ li a {
     @apply dark:text-sky-300 text-fuchsia-700 font-bold;
     font-family: "Kaushan Script", cursive;
 }
+
+.username{
+    @apply dark:text-sky-300 text-fuchsia-700 font-semibold;
+}

@@ -12,29 +12,12 @@ const ChatBox = () => {
     const userNameRef = useRef(null);
     const [red, setRed] = useState(false);
     const [allowMessaging, setAllowMessaging] = useState(false);
-    const [userName, setUserName] = useState('');
-    const userNameRef = useRef(null);
-    const [red, setRed] = useState(false);
-    const [allowMessaging, setAllowMessaging] = useState(false);
     let [messages, setMessages] = useState([]);
     const [newMsg, setNewMsg] = useState('');
     const [showBtn, setShowBtn] = useState(false);
     // let [pageNo, setPageNo] = useState(1);
     const inputRef = useRef(null);
     const msgBoxRef = useRef(null);
-
-    // userNameBtnHandler
-    const userNameBtnHandler = () => {
-        if (userName.trim() === '') {
-            setUserName('');
-            setRed(true);
-            userNameRef.current.focus();
-            return;
-        }
-
-        setRed(false);
-        setAllowMessaging(true);
-    }
 
     // userNameBtnHandler
     const userNameBtnHandler = () => {
@@ -165,21 +148,6 @@ const ChatBox = () => {
                             <div className="w-full h-full grid place-items-center text-center font-medium text-[18px]">Come on {userName}!, hit me with you first message.</div>
                         }
                     </div>
-                            messages.map((msg, index) =>
-                                <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6 border dark:border-white/10 border-transparent">
-                                    <div className="break-words">
-                                        <span className="username">{msg.username === userName ? "You" : msg.username}: </span>
-                                        {reactStringReplace(msg.message, 'bhai', (match, i) => (
-                                            <span key={i} className="bhai-text">{match}</span>
-                                        ))}
-                                    </div>
-                                    <span className="text-sm float-end inline-block">{getTime(msg.date)}</span>
-                                </div>
-                            )
-                            :
-                            <div className="w-full h-full grid place-items-center text-center font-medium text-[18px]">Come on {userName}!, hit me with you first message.</div>
-                        }
-                    </div>
 
                     {/* scroll to latest message btn */}
                     <span
@@ -233,7 +201,7 @@ const ChatBox = () => {
 
                 </div>
             }
-        </div>
+        </div >
     )
 }
 

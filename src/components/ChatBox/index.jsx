@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getTime } from "../../utilities/usefullJS";
 import { IoIosArrowDown } from "react-icons/io";
-import sendTone from "../../utilities/tones/send-tone.mp3"
-import receiveTone from "../../utilities/tones/receive-tone.mp3"
-import reactStringReplace from 'react-string-replace';
 import { SERVER_URL } from "../../utilities/config";
 import axios from 'axios';
+import reactStringReplace from 'react-string-replace';
 import io from 'socket.io-client';
 const socket = io.connect("https://chattuu-bhai-server.onrender.com");
 
 const ChatBox = () => {
+    const [userName, setUserName] = useState('');
+    const userNameRef = useRef(null);
+    const [red, setRed] = useState(false);
+    const [allowMessaging, setAllowMessaging] = useState(false);
     const [userName, setUserName] = useState('');
     const userNameRef = useRef(null);
     const [red, setRed] = useState(false);
@@ -20,6 +22,19 @@ const ChatBox = () => {
     // let [pageNo, setPageNo] = useState(1);
     const inputRef = useRef(null);
     const msgBoxRef = useRef(null);
+
+    // userNameBtnHandler
+    const userNameBtnHandler = () => {
+        if (userName.trim() === '') {
+            setUserName('');
+            setRed(true);
+            userNameRef.current.focus();
+            return;
+        }
+
+        setRed(false);
+        setAllowMessaging(true);
+    }
 
     // userNameBtnHandler
     const userNameBtnHandler = () => {
@@ -45,14 +60,6 @@ const ChatBox = () => {
     }
     msgBoxRef.current?.addEventListener('scroll', scrollBtnHandler);
 
-    // play tones
-    const playTone = (mode) => {
-        let audio;
-        if (mode === 'send') audio = new Audio(sendTone);
-        else audio = new Audio(receiveTone);
-        audio.play();
-    }
-
     // web socket send message connection
     const sendMessage = () => {
         inputRef.current.focus();
@@ -70,7 +77,6 @@ const ChatBox = () => {
         setMessages((prev) => [...prev, newMsgObj]);
         socket.emit("send_message", newMsgObj);
         setNewMsg('');
-        playTone("send");
 
         setTimeout(() => {
             msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
@@ -81,18 +87,8 @@ const ChatBox = () => {
     useEffect(() => {
         socket.on("receive_message", (data) => {
             setMessages((prev) => [...prev, data]);
-            playTone("receive");
 
-            const clientHeight = msgBoxRef.current.clientHeight; //display height
-            const scrollHeight = msgBoxRef.current.scrollHeight; //total scrollbar hight
-            const scrollTop = msgBoxRef.current.scrollTop; //top position
-
-            if (scrollHeight <= clientHeight + scrollTop + 200) {
-                setTimeout(() => {
-                    msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
-                }, 10);
-            }
-            else scrollBtnHandler();
+            scrollBtnHandler();
         })
     }, [socket]);
 
@@ -154,6 +150,21 @@ const ChatBox = () => {
                     >
                         {messages.length > 0 ?
 
+                            messages.map((msg, index) =>
+                                <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6 border dark:border-white/10 border-transparent">
+                                    <div className="break-words">
+                                        <span className="username">{msg.username === userName ? "You" : msg.username}: </span>
+                                        {reactStringReplace(msg.message, 'bhai', (match, i) => (
+                                            <span key={i} className="bhai-text">{match}</span>
+                                        ))}
+                                    </div>
+                                    <span className="text-sm float-end inline-block">{getTime(msg.date)}</span>
+                                </div>
+                            )
+                            :
+                            <div className="w-full h-full grid place-items-center text-center font-medium text-[18px]">Come on {userName}!, hit me with you first message.</div>
+                        }
+                    </div>
                             messages.map((msg, index) =>
                                 <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6 border dark:border-white/10 border-transparent">
                                     <div className="break-words">

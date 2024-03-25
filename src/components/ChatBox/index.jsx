@@ -10,6 +10,7 @@ import io from 'socket.io-client';
 const socket = io.connect("https://chattuu-bhai-server.onrender.com");
 
 const ChatBox = () => {
+    const [userID, setUserID] = useState('');
     const [userName, setUserName] = useState('');
     const userNameRef = useRef(null);
     const [red, setRed] = useState(false);
@@ -63,6 +64,7 @@ const ChatBox = () => {
         }
 
         const newMsgObj = {
+            userID,
             username: userName.trim(),
             message: newMsg.trim(),
             date: new Date()
@@ -97,9 +99,9 @@ const ChatBox = () => {
         })
     }, [socket]);
 
-    useEffect(()=>{
-        socket.on("connect", ()=>{
-            console.log(socket.id);
+    useEffect(() => {
+        socket.on("connect", () => {
+            setUserID(socket.id);
         })
     }, []);
 
@@ -117,7 +119,7 @@ const ChatBox = () => {
                             messages.map((msg, index) =>
                                 <div key={index} id={index} className="w-full min-h-12 dark:bg-gray-900/50 bg-white/30 dark:text-white text-neutral-800 rounded-xl px-4 pt-2 pb-6 border dark:border-white/10 border-transparent">
                                     <div className="break-words">
-                                        <span className="username">{msg.username === userName ? "You" : msg.username}: </span>
+                                        <span className="username">{msg.userID === userID ? "You" : msg.username}: </span>
                                         {reactStringReplace(msg.message, 'bhai', (matchMsg, i) => (
                                             <span key={i} className="bhai-text">{matchMsg}</span>
                                         ))}

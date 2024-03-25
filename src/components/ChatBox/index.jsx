@@ -42,7 +42,7 @@ const ChatBox = () => {
         const scrollHeight = msgBoxRef.current.scrollHeight; //total scrollbar hight
         const scrollTop = msgBoxRef.current.scrollTop; //top position
 
-        if (scrollHeight > clientHeight + scrollTop + 200) setShowBtn(true);
+        if (scrollHeight > clientHeight + scrollTop + 100) setShowBtn(true);
         else setShowBtn(false);
     }
     msgBoxRef.current?.addEventListener('scroll', scrollBtnHandler);
@@ -90,7 +90,7 @@ const ChatBox = () => {
             const scrollHeight = msgBoxRef.current.scrollHeight; //total scrollbar hight
             const scrollTop = msgBoxRef.current.scrollTop; //top position
 
-            if (scrollHeight <= clientHeight + scrollTop + 200) {
+            if (scrollHeight <= clientHeight + scrollTop + 100) {
                 setTimeout(() => {
                     msgBoxRef.current.scroll(0, msgBoxRef.current.scrollHeight);
                 }, 10);

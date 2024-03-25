@@ -97,6 +97,12 @@ const ChatBox = () => {
         })
     }, [socket]);
 
+    useEffect(()=>{
+        socket.on("connect", ()=>{
+            console.log(socket.id);
+        })
+    }, []);
+
     return (
         <div className="w-full max-w-4xl sm:h-[calc(100%-5rem)] h-[calc(100%-4rem)] mx-auto dark:bg-gray-700/20 bg-gray-500/30 sm:rounded-lg relative z-10 overflow-hidden">
             {allowMessaging ?

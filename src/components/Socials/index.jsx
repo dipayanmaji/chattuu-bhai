@@ -1,5 +1,6 @@
 import React from "react";
-import { FaTwitter, FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa";
+import { FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { FiGithub } from 'react-icons/fi';
 import { RxDragHandleDots2 } from "react-icons/rx";
 
@@ -20,7 +21,7 @@ const Socials = () => {
             </li>
             <li>
                 <a href="https://twitter.com/dipayanmaji11" target="_blank">
-                    <FaTwitter />
+                    <FaXTwitter />
                 </a>
             </li>
             <li>

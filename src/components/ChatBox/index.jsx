@@ -171,6 +171,7 @@ const ChatBox = () => {
                             ref={userNameRef}
                             value={userName}
                             onChange={(e) => setUserName(e.target.value)}
+                            onKeyUp={(e) => e.key === "Enter" && userNameBtnHandler()}
                             placeholder="your nickname"
                             autoFocus
                             className={`break-words bg-transparent w-32 mx-2 px-1 text-white ${red ? 'placeholder-red-300' : 'placeholder-slate-300/60'} outline-none border-b-[1px] border-dotted`}

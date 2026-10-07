@@ -1,15 +1,16 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Stage, PresentationControls } from "@react-three/drei";
-import { useState } from "react";
+import { useRef } from "react";
 
 function Model(props) {
   const { scene } = useGLTF("/planet.glb");
-  const [rotationAngle, setRotationAngle] = useState(0);
+  const ref = useRef();
 
+  // rotate through a ref: no React re-render on every frame
   useFrame(() => {
-    setRotationAngle(rotationAngle + 0.003);
-  })
-  return <primitive object={scene} rotation={[0, rotationAngle, 0]} {...props} />
+    if (ref.current) ref.current.rotation.y += 0.003;
+  });
+  return <primitive ref={ref} object={scene} {...props} />
 }
 
 function Globe() {

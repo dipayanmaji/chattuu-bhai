@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { IoMdMoon, IoIosSunny } from "react-icons/io";
 import ChatBox from './components/ChatBox';
@@ -12,10 +12,14 @@ function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') ? (localStorage.getItem('darkMode') === "true" ? true : false) : false);
 
   // responsive window size handler
-  window.addEventListener('resize', () => {
-    setScreenHeight(window.innerHeight);
-    setScreenWidth(window.innerWidth);
-  })
+  useEffect(() => {
+    const onResize = () => {
+      setScreenHeight(window.innerHeight);
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   // dark mode handler
   const darkModeHandler = () => {
@@ -47,8 +51,9 @@ function App() {
         <Socials />
 
         {/* globe and particle themes for dark mode */}
-        <Globe />
-        <ParticleBg />
+        {/* only mounted in dark mode, otherwise they would keep using the GPU while hidden */}
+        {darkMode && <Globe />}
+        {darkMode && <ParticleBg />}
 
       </div>
     </div>

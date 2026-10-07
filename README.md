@@ -8,7 +8,7 @@
 
 <h1></h1>
 
-![chattu-bhai-01](https://github.com/user-attachments/assets/1c00df2b-6f07-48d5-aa79-dc883409fead)
+<img width="976" height="796" alt="chattu-bhai-dark" src="https://github.com/user-attachments/assets/2238f156-21a7-4a0b-8611-eb2c49fc6bc0" />
 
 <h1></h1>
 <h1>Features</h1>
@@ -37,4 +37,4 @@
 </ul>
 <h1></h1>
 
-![chattu-bhai-02](https://github.com/user-attachments/assets/482582c4-0038-4178-a25f-45ce6369f627)
+<img width="977" height="799" alt="chattu-bhai-light" src="https://github.com/user-attachments/assets/f65c2d57-abae-436c-8c43-ab36c546e1d9" />
